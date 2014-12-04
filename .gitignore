@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+# CLion Stuff
+.idea/*
+
+# Misc. Stuff
+*.txt
