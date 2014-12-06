@@ -4,14 +4,27 @@ Graph::Graph(int vertices)
 {
     numVertices = vertices;
     list = new AdjacencyList[numVertices];
+    nodes = new Node*[numVertices];
 
     for(int i = 0; i < numVertices; i++)
     {
         list[i].id = i;
         list[i].head = NULL;
+        nodes[i] = new Node();
+        nodes[i]->setId(i);
     }
 }
 
+void Graph::reset()
+{
+    for(int i = 0; i < numVertices; i++)
+    {
+        nodes[i]->pi = -1;
+        nodes[i]->visited = false;
+        nodes[i]->start = -1;
+        nodes[i]->end = -1;
+    }
+}
 bool Graph::addEdge(const int u, const int v)
 {
     if(u < 0 || v < 0 || u >= numVertices || v >= numVertices)
