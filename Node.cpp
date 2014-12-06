@@ -4,11 +4,14 @@ Node::~Node()
 {
     //dtor
 }
-
-Node::Node(const Node& other)
+Node::Node(int anId)
+{
+    id = anId;
+}
+/*Node::Node(const Node& other)
 {
     //copy ctor
-}
+}*/
 
 Node& Node::operator=(const Node& rhs)
 {
