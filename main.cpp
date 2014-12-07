@@ -8,7 +8,9 @@
 using namespace std;
 
 void dfsVisit(Graph g, int n);
+void parray (int **a, int b);
 int numConnectedComponents(Graph g);
+float aosp(Graph g);
 int numElementsInTree(Graph g, int id);
 int sizeOfLargestConnectedComponent(Graph g);
 float averageNodeDistance(Graph g);
@@ -19,15 +21,20 @@ const int AOI_LENGTH = 500, AOI_WIDTH = 500;
 int main()
 {
     srand(time(NULL));
-    int numNodes = 5, range = 100;
+    int numNodes = 10, range = 100;
 
     Graph g(numNodes);
     Node* nodes = new Node[numNodes];
 
-    g.addEdge(0, 1);
-    g.addEdge(1, 2);
-    g.addEdge(0, 2);
-    g.addEdge(3, 4);
+    g.addEdge(0, 4);
+    g.addEdge(2, 4);
+    g.addEdge(4, 5);
+    g.addEdge(5, 8);
+    g.addEdge(3, 8);
+    g.addEdge(6, 7);
+    g.addEdge(7, 9);
+    g.addEdge(1, 0);
+
     /*for(int i = 0; i < numNodes; i++)
     {
         nodes[i].setId(i);
@@ -53,6 +60,9 @@ int main()
     cout << numConnectedComponents(g) << endl;
     g.reset();
     cout << sizeOfLargestConnectedComponent(g) << endl;
+
+    cout << "\nAoSP result: " << aosp(g) << "\n";
+
     return 0;
 }
 
@@ -98,7 +108,7 @@ void dfsVisit(Graph g, int n)
 
 bool inRange(Node& a, Node& b, int range)
 {
-    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)) <= range;
+    return pow((a.x - b.x),2) + pow((a.y - b.y) , 2) <= pow(range,2);
 }
 
 int sizeOfLargestConnectedComponent(Graph g)
@@ -143,3 +153,112 @@ int numElementsInTree(Graph g, int id)
 
     return count + 1;
 }
+
+float aosp(Graph g)//average of shortest paths
+{
+    cout << "break";
+    int numVerts = g.numVertices;
+
+    int **aosparray;
+
+    aosparray = new int *[numVerts];
+    for(int i = 0; i < numVerts;i++)
+    {
+        aosparray[i] = new int[numVerts];
+    }
+
+    for(int i = 0; i < numVerts;i++)
+    {
+        for(int j = 0; j < numVerts;j++)
+        {
+            if(i==j)
+            {
+                aosparray[i][j]=0;
+            }
+            else
+            {
+                aosparray[i][j]=999;
+            }
+        }
+
+        Node* temp = g.list[i].head;
+
+        while(temp != NULL)
+        {
+            aosparray[i][temp->id]=1;
+            temp = temp->next;
+        }
+    }
+
+    for(int i = 0 ; i < numVerts ; i++)
+    {
+        for(int j = 0 ; j < numVerts ; j++)
+        {
+            for(int k = 0 ; k < numVerts ; k++)
+            {
+                if(aosparray[j][k] > aosparray[j][i] + aosparray[i][k] &&  aosparray[j][i] > 0 && aosparray[i][k] > 0)
+                {
+                    aosparray[j][k] = aosparray[j][i] + aosparray[i][k];
+                }
+            }
+        }
+
+    }
+    parray(aosparray, numVerts);
+
+    float sum = 0;
+    float div = 0;
+    int d = 0;
+
+    for(int i = 0 ; i < numVerts ; i++)
+    {
+        for(int j = 0 ; j < numVerts ; j++)
+        {
+            if(aosparray[i][j] > 0 && aosparray[i][j] < 999)
+            {
+                sum += aosparray[i][j];
+                div += 1;
+
+                if(aosparray[i][j] > d)
+                {
+                    d = aosparray[i][j];
+                }
+            }
+        }
+    }
+
+    cout << "\nDiameter = " << d << "\n\n";
+
+    return (sum/div);
+
+
+}
+
+void parray(int **a, int b)
+{
+    cout << "\n";
+
+    for(int i = 0; i < b;i++)
+    {
+        for(int j = 0; j < b;j++)
+        {
+            if(a[i][j] > -1 && a[i][j] < 10)
+            {
+                cout << "  ";
+            }
+            else if(a[i][j] == -1 || (a[i][j] > 9 && a[i][j] < 100))
+            {
+                cout << " ";
+            }
+            cout << a[i][j] << "   ";
+        }
+
+        cout << "\n";
+    }
+    cout << "\n";
+    cout << "\n";
+}
+
+
+
+
