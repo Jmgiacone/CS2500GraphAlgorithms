@@ -15,10 +15,12 @@ float averageNodeDistance(Graph g);
 int diameterOfGraph(Graph g);
 bool inRange(Node& a, Node& b, int range);
 const int AOI_LENGTH = 500, AOI_WIDTH = 500;
+
 int main()
 {
     srand(time(NULL));
     int numNodes = 5, range = 100;
+
     Graph g(numNodes);
     Node* nodes = new Node[numNodes];
 

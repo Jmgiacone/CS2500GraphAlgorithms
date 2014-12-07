@@ -1,5 +1,11 @@
+#ifndef GRAPH_H
+#define GRAPH_H
 #include "Node.h"
 #include "AdjacencyList.h"
+
+
+using namespace std;
+
 class Graph
 {
 public:
@@ -27,3 +33,5 @@ public:
     AdjacencyList* list;
     Node** nodes;
 };
+
+#endif
