@@ -8,17 +8,19 @@
 
 using namespace std;
 
-void dfsVisit(Graph* g, int n);
-void parray (int **a, int b);
-int numConnectedComponents(Graph* g);
-float aosp(Graph* g, int& totalDiameter);
-int numElementsInTree(Graph* g, int id);
-int sizeOfLargestConnectedComponent(Graph* g);
-float averageNodeDistance(Graph* g);
-int diameterOfGraph(Graph* g);
-bool inRange(Node* a, Node* b, int range);
+void dfsVisit(Graph* g, int n);//DFS function
+void parray (int **a, int b);//test function to output aosp function
+int numConnectedComponents(Graph* g);//returns number of separate connected components
+float aosp(Graph* g, int& totalDiameter);//average of shortest paths in graph, also finds greatest diameter of largest connected component
+int numElementsInTree(Graph* g, int id);//returns number of nodes in a connected component
+int sizeOfLargestConnectedComponent(Graph* g);//returns number of nodes of the largest connected components
+float averageNodeDistance(Graph* g);// --------------------------
+int diameterOfGraph(Graph* g);// --------------------------
+bool inRange(Node* a, Node* b, int range);//test if two nodes can form a connection
 const int AOI_LENGTH = 500, AOI_WIDTH = 500, MIN_NODES = 50, MAX_NODES = 1250, NUM_REPETITIONS = 10, ARBITRARY_RANGE = 20, MIN_RANGE = 5, MAX_RANGE = 100, ARBITRARY_NODES = 200;
 const string FILENAME = "GraphTestingSuite.txt";//"H:\\Users\\Jordan\\Documents\\Github Repos\\CS2500GraphAlgorithms\\GraphTestingSuite.txt";
+
+
 
 int main()
 {
@@ -77,6 +79,11 @@ int main()
         outputFile << "Average size of the largest connected Component: " << totalLargestConnectedComponent / static_cast<float>(NUM_REPETITIONS) << endl;
         outputFile << "Average of the average node distance: " << totalAverageDistance / static_cast<float>(NUM_REPETITIONS) << endl;
         outputFile << "Average Diameter: " << totalDiameter / static_cast<float>(NUM_REPETITIONS) << endl;
+
+        totalConnectedComponents = 0;
+        totalLargestConnectedComponent = 0;
+        totalAverageDistance = 0;
+        totalDiameter = 0;
     }
 
     cout << "Node done Range started\n";
@@ -142,6 +149,11 @@ int main()
         outputFile << "Average size of the largest connected Component: " << totalLargestConnectedComponent / static_cast<float>(NUM_REPETITIONS) << endl;
         outputFile << "Average of the average node distance: " << totalAverageDistance / static_cast<float>(NUM_REPETITIONS) << endl;
         outputFile << "Average Diameter: " << totalDiameter / static_cast<float>(NUM_REPETITIONS) << endl;
+
+        totalConnectedComponents = 0;
+        totalLargestConnectedComponent = 0;
+        totalAverageDistance = 0;
+        totalDiameter = 0;
     }
 
     return 0;
