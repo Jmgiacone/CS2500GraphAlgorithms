@@ -17,14 +17,14 @@ int sizeOfLargestConnectedComponent(Graph* g);
 float averageNodeDistance(Graph* g);
 int diameterOfGraph(Graph* g);
 bool inRange(Node* a, Node* b, int range);
-const int AOI_LENGTH = 500, AOI_WIDTH = 500, MIN_NODES = 50, MAX_NODES = 1000, NUM_REPETITIONS = 3, ARBITRARY_RANGE = 20;
+const int AOI_LENGTH = 500, AOI_WIDTH = 500, MIN_NODES = 50, MAX_NODES = 1250, NUM_REPETITIONS = 10, ARBITRARY_RANGE = 20, MIN_RANGE = 5, MAX_RANGE = 100, ARBITRARY_NODES = 200;
 const string FILENAME = "GraphTestingSuite.txt";//"H:\\Users\\Jordan\\Documents\\Github Repos\\CS2500GraphAlgorithms\\GraphTestingSuite.txt";
 
 int main()
 {
     srand(time(NULL));
     int numNodes = 0, range = ARBITRARY_RANGE, totalConnectedComponents = 0,
-            totalLargestConnectedComponent = 0, totalAverageDistance = 0, totalDiameter = 0;
+            totalLargestConnectedComponent = 0, totalAverageDistance = 0, totalDiameter = 0 , numRange = 0;
     ofstream outputFile;
     outputFile.open(FILENAME.c_str());
     Graph* g;
@@ -36,9 +36,11 @@ int main()
     while(numNodes != MAX_NODES)
     {
         numNodes += MIN_NODES;
+        cout << numNodes << "\n";
         outputFile << "Number of Nodes: " << numNodes << endl;
         for(int i = 0; i < NUM_REPETITIONS; i++)
         {
+            cout << "Rep: " << i+1 << "\n";
             g = new Graph(numNodes);
             nodes = new Node*[numNodes];
 
@@ -68,6 +70,71 @@ int main()
             totalAverageDistance += aosp(g, totalDiameter);
 
             delete g;
+            g = NULL;
+        }
+
+        outputFile << "Average number of Connected Components: " << totalConnectedComponents / static_cast<float>(NUM_REPETITIONS) << endl;
+        outputFile << "Average size of the largest connected Component: " << totalLargestConnectedComponent / static_cast<float>(NUM_REPETITIONS) << endl;
+        outputFile << "Average of the average node distance: " << totalAverageDistance / static_cast<float>(NUM_REPETITIONS) << endl;
+        outputFile << "Average Diameter: " << totalDiameter / static_cast<float>(NUM_REPETITIONS) << endl;
+    }
+
+    cout << "Node done Range started\n";
+
+    ///////
+    while(numRange != MAX_RANGE)
+    {
+        numRange += MIN_RANGE;
+        cout << numRange << "\n";
+        outputFile << "Range: " << numNodes << endl;
+        for(int i = 0; i < NUM_REPETITIONS; i++)
+        {
+            cout << "Rep: " << i+1 << "\n";
+
+            g = new Graph(ARBITRARY_NODES);
+            nodes = new Node*[ARBITRARY_NODES];
+
+            for (int i = 0; i < ARBITRARY_NODES; i++)
+            {
+                nodes[i] = new Node(i,rand() % AOI_WIDTH,rand() % AOI_LENGTH);
+
+            }
+
+
+            for (int i = 0; i < ARBITRARY_NODES; i++) {
+                for (int j = 0; j < ARBITRARY_NODES; j++) {
+                    if (j != i && inRange(nodes[i], nodes[j], numRange)) {
+                        g->addEdge(nodes[i]->id, nodes[j]->id);
+
+                    }
+                }
+            }
+
+
+
+            for(int i = 0; i < ARBITRARY_NODES; i++)
+            {
+                delete nodes[i];
+
+            }
+
+            delete [] nodes;
+
+            nodes = NULL;
+
+            totalConnectedComponents += numConnectedComponents(g);
+
+            g->reset();
+
+            totalLargestConnectedComponent += sizeOfLargestConnectedComponent(g);
+
+            g->reset();
+
+            totalAverageDistance += aosp(g, totalDiameter);
+            cout << "\n++Deleting++\n";
+
+            delete g;
+            cout << "\n++Deleted++\n";
             g = NULL;
         }
 
