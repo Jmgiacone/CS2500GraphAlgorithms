@@ -13,6 +13,7 @@ AdjacencyListNode::AdjacencyListNode(int anId)
 }
 AdjacencyListNode::~AdjacencyListNode()
 {
+    //Run through and delete nodes that are chained to this one
     AdjacencyListNode* tmp1 = next;
     AdjacencyListNode* tmp2 = NULL;
 
