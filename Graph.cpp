@@ -33,6 +33,7 @@ Graph::Graph(int vertices)
     }
 }
 
+//Resets pi and visited values
 void Graph::reset()
 {
     for(int i = 0; i < numVertices; i++)
@@ -41,8 +42,10 @@ void Graph::reset()
         nodes[i]->visited = false;
     }
 }
+
 bool Graph::addEdge(const int u, const int v)
 {
+    //Can't add if out-of-bounds
     if(u < 0 || v < 0 || u >= numVertices || v >= numVertices)
     {
         return false;
@@ -50,6 +53,7 @@ bool Graph::addEdge(const int u, const int v)
 
     AdjacencyListNode* tmp = list[u]->head;
 
+    //Checking if alread added
     while(tmp != NULL)
     {
         if(tmp->id == v)
@@ -63,6 +67,7 @@ bool Graph::addEdge(const int u, const int v)
     AdjacencyListNode* src = new AdjacencyListNode(u);
     AdjacencyListNode* dest = new AdjacencyListNode(v);
 
+    //Traincar chaining
     src -> next = list[v]->head;
     list[v]->head = src;
 
