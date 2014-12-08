@@ -14,15 +14,3 @@ Node::Node(int anId, int anX, int aY)
     x = anX;
     y = aY;
 }
-/*Node::Node(const Node& other)
-{
-    //copy ctor
-}*/
-/*
-Node& Node::operator=(const Node& rhs)
-{
-    if (this == &rhs) return *this; // handle self assignment
-    //assignment operator
-    return *this;
-}*/
-
