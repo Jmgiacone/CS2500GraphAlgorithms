@@ -14,6 +14,8 @@ public:
     ~Graph();
     bool addEdge(const int u, const int v);
     void reset();
+
+    //Nice output operator
     friend ostream& operator << (ostream& out, const Graph g)
     {
         int v;
