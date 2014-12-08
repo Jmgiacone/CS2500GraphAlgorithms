@@ -1,17 +1,35 @@
 #include "Graph.h"
 
+Graph::~Graph()
+{
+    for(int i = 0; i < numVertices; i++)
+    {
+        delete nodes[i];
+        delete list[i];
+    }
+
+    delete [] list;
+    delete [] nodes;
+    list = NULL;
+    nodes = NULL;
+}
+Graph::Graph()
+{
+    numVertices = 0;
+    list = NULL;
+    nodes = NULL;
+}
 Graph::Graph(int vertices)
 {
     numVertices = vertices;
-    list = new AdjacencyList[numVertices];
+
+    list = new AdjacencyList*[numVertices];
     nodes = new Node*[numVertices];
 
     for(int i = 0; i < numVertices; i++)
     {
-        list[i].id = i;
-        list[i].head = NULL;
-        nodes[i] = new Node();
-        nodes[i]->setId(i);
+        list[i] = new AdjacencyList();
+        nodes[i] = new Node(i);
     }
 }
 
@@ -21,8 +39,6 @@ void Graph::reset()
     {
         nodes[i]->pi = -1;
         nodes[i]->visited = false;
-        nodes[i]->start = -1;
-        nodes[i]->end = -1;
     }
 }
 bool Graph::addEdge(const int u, const int v)
@@ -32,28 +48,30 @@ bool Graph::addEdge(const int u, const int v)
         return false;
     }
 
-    Node* tmp = list[u].head;
+    AdjacencyListNode* tmp = list[u]->head;
+
     while(tmp != NULL)
     {
         if(tmp->id == v)
         {
             return false;
         }
-        else
-        {
-            tmp = tmp -> next;
-        }
+
+        tmp = tmp -> next;
     }
-    Node* src = new Node();
-    Node* dest = new Node();
 
-    src -> id = u;
-    src -> next = list[v].head;
-    list[v].head = src;
+    AdjacencyListNode* src = new AdjacencyListNode(u);
+    AdjacencyListNode* dest = new AdjacencyListNode(v);
 
-    dest -> id = v;
-    dest -> next = list[u].head;
-    list[u].head = dest;
+    src -> next = list[v]->head;
+    list[v]->head = src;
+
+    dest -> next = list[u]->head;
+    list[u]->head = dest;
+
+    src = NULL;
+    dest = NULL;
+    tmp = NULL;
 
     return true;
 }

@@ -9,15 +9,18 @@ using namespace std;
 class Graph
 {
 public:
+    Graph();
     Graph(int vertices);
+    ~Graph();
     bool addEdge(const int u, const int v);
     void reset();
     friend ostream& operator << (ostream& out, const Graph g)
     {
         int v;
+        AdjacencyListNode* pCrawl;
         for (v = 0; v < g.numVertices; ++v)
         {
-            Node* pCrawl = g.list[v].head;
+            pCrawl = g.list[v]->head;
             out << "\n Adjacency list of vertex " << g.nodes[v]->id << "\n head";
             while (pCrawl)
             {
@@ -27,10 +30,11 @@ public:
             out << "\n";
         }
 
+        pCrawl = NULL;
         return out;
     }
     int numVertices;
-    AdjacencyList* list;
+    AdjacencyList** list;
     Node** nodes;
 };
 
