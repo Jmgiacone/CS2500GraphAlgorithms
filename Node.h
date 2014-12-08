@@ -6,19 +6,11 @@ using namespace std;
 class Node
 {
 public:
-    Node* next;
-    int id, x, y, start, end, pi;
+    int id, x, y, pi;
     bool visited;
-    Node() : pi(-1), next(NULL), id(-1), x(-1), y(-1), start(-1), end(-1), visited(false){};
+    Node();
+    Node(int anId, int anX, int aY);
     Node(int anId);
-    //~Node() {delete pi; delete next;};
-    void setId(int idVal) {id = idVal;};
-    void setX(int xVal) {x = xVal;};
-    void setY(int yVal) {y = yVal;};
-    void setStart(int startVal) {start = startVal;};
-    void setEnd(int endVal) {end = endVal;};
-    void setVisited(bool visitedVal) {visited = visitedVal;};
-    bool setPi(int piVal) {pi = piVal;};
 
     friend ostream& operator << (ostream& out, const Node n)
     {
