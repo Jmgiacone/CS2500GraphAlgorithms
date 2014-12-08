@@ -1,8 +1,9 @@
-#include "Node.h"
+#include "AdjacencyListNode.h"
 
-struct AdjacencyList
+class AdjacencyList
 {
-    int id;
-    Node* head;
-    ~AdjacencyList() {delete head;};
+public:
+    AdjacencyListNode* head;
+    AdjacencyList();
+    ~AdjacencyList();
 };
