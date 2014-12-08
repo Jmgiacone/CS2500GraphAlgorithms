@@ -118,7 +118,6 @@ int main()
                     if (j != i && inRange(nodes[i], nodes[j], numRange))
                     {
                         g->addEdge(nodes[i]->id, nodes[j]->id);
-
                     }
                 }
             }
@@ -126,7 +125,6 @@ int main()
             for(int i = 0; i < ARBITRARY_NODES; i++)
             {
                 delete nodes[i];
-
             }
 
             delete [] nodes;
@@ -176,6 +174,7 @@ int numConnectedComponents(Graph* g)
         }
     }
 
+    //Each node with a null pi starts a CC
     for(int i = 0; i < g->numVertices; i++)
     {
         if(g->nodes[i]->pi == -1)
@@ -192,6 +191,8 @@ void dfsVisit(Graph* g, int n)
     int id;
     g->nodes[n]->visited = true;
     AdjacencyListNode* tmp = g->list[n]->head;
+
+    //Visit each adjacent node
     while(tmp != NULL)
     {
         id = tmp->id;
@@ -207,6 +208,7 @@ void dfsVisit(Graph* g, int n)
 
 bool inRange(Node* a, Node* b, int range)
 {
+    //Euclidian distance
     return pow((a->x - b->x),2) + pow((a->y - b->y) , 2) <= pow(range,2);
 }
 
@@ -238,6 +240,7 @@ int sizeOfLargestConnectedComponent(Graph* g)
     return largest;
 }
 
+//Uses preorder traversal to count nodes
 int numElementsInTree(Graph* g, int id)
 {
     int count = 0;
@@ -255,7 +258,6 @@ int numElementsInTree(Graph* g, int id)
 
 float aosp(Graph* g, int& totalDiameter)//average of shortest paths
 {
-    //cout << "break";
     int numVerts = g->numVertices;
 
     int **aosparray;
@@ -289,6 +291,7 @@ float aosp(Graph* g, int& totalDiameter)//average of shortest paths
         }
     }
 
+    //Core of Floyd-Warshall
     for(int i = 0 ; i < numVerts ; i++)
     {
         for(int j = 0 ; j < numVerts ; j++)
@@ -303,10 +306,8 @@ float aosp(Graph* g, int& totalDiameter)//average of shortest paths
         }
 
     }
-    //parray(aosparray, numVerts);
 
-    float sum = 0;
-    float div = 0;
+    float sum = 0,div = 0;
     int d = 0;
 
     for(int i = 0 ; i < numVerts ; i++)
@@ -327,11 +328,12 @@ float aosp(Graph* g, int& totalDiameter)//average of shortest paths
     }
 
     totalDiameter += d;
+
+    //Ensuring that we don't divide by zero
     return (div == 0 ? 0 : sum/div);
-
-
 }
 
+//Printing utility function
 void parray(int **a, int b)
 {
     cout << "\n";
