@@ -8,6 +8,7 @@ AdjacencyList::AdjacencyList()
 
 AdjacencyList::~AdjacencyList()
 {
+    /*
     AdjacencyListNode* tmp1 = head;
     AdjacencyListNode* tmp2 = NULL;
 
@@ -21,5 +22,7 @@ AdjacencyList::~AdjacencyList()
     }
 
     tmp1 = NULL;
-    tmp2 = NULL;
+    tmp2 = NULL;*/
+    delete head;
+
 }
