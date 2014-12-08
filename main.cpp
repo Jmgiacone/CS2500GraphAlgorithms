@@ -17,7 +17,7 @@ int sizeOfLargestConnectedComponent(Graph* g);
 float averageNodeDistance(Graph* g);
 int diameterOfGraph(Graph* g);
 bool inRange(Node* a, Node* b, int range);
-const int AOI_LENGTH = 500, AOI_WIDTH = 500, MIN_NODES = 50, MAX_NODES = 1000, NUM_REPETITIONS = 15, ARBITRARY_RANGE = 20;
+const int AOI_LENGTH = 500, AOI_WIDTH = 500, MIN_NODES = 50, MAX_NODES = 1000, NUM_REPETITIONS = 3, ARBITRARY_RANGE = 20;
 const string FILENAME = "GraphTestingSuite.txt";//"H:\\Users\\Jordan\\Documents\\Github Repos\\CS2500GraphAlgorithms\\GraphTestingSuite.txt";
 
 int main()
@@ -31,15 +31,8 @@ int main()
     Node** nodes;
     outputFile << "VARYING NUMBER OF NODES WITH TRANSMISSION RANGE OF " << ARBITRARY_RANGE << endl;
 
-    g = new Graph(5);
-    g->addEdge(0, 1);
-    g->addEdge(1, 2);
-    g->addEdge(2, 3);
-    g->addEdge(3, 4);
-    g->addEdge(4, 0);
 
-    cout << *g << endl;
-    delete g;
+
     while(numNodes != MAX_NODES)
     {
         numNodes += MIN_NODES;
@@ -242,12 +235,13 @@ float aosp(Graph* g, int& totalDiameter)//average of shortest paths
 
                 if(aosparray[i][j] > d)
                 {
-                    totalDiameter += aosparray[i][j];
+                    d = aosparray[i][j];
                 }
             }
         }
     }
 
+    totalDiameter += d;
     return (div == 0 ? 0 : sum/div);
 
 
