@@ -30,16 +30,14 @@ int main()
     Node** nodes;
     outputFile << "VARYING NUMBER OF NODES WITH TRANSMISSION RANGE OF " << ARBITRARY_RANGE << endl;
 
-
-
     while(numNodes != MAX_NODES)
     {
         numNodes += MIN_NODES;
-        cout << numNodes << "\n";
+        cout << "Number of Nodes: " << numNodes << endl;
         outputFile << "Number of Nodes: " << numNodes << endl;
         for(int i = 0; i < NUM_REPETITIONS; i++)
         {
-            cout << "Rep: " << i+1 << "\n";
+            cout << "Rep: " << i+1 << endl;
             g = new Graph(numNodes);
             nodes = new Node*[numNodes];
 
@@ -83,17 +81,17 @@ int main()
         totalDiameter = 0;
     }
 
-    cout << "Node done Range started\n";
+    cout << "Nodes are done; range started" << endl;
 
     ///////
     while(numRange != MAX_RANGE)
     {
         numRange += MIN_RANGE;
-        cout << numRange << "\n";
+        cout << numRange << endl;
         outputFile << "Range: " << numRange << endl;
         for(int i = 0; i < NUM_REPETITIONS; i++)
         {
-            cout << "Rep: " << i+1 << "\n";
+            cout << "Rep: " << i+1 << endl;
 
             g = new Graph(ARBITRARY_NODES);
             nodes = new Node*[ARBITRARY_NODES];
@@ -101,7 +99,6 @@ int main()
             for (int i = 0; i < ARBITRARY_NODES; i++)
             {
                 nodes[i] = new Node(i,rand() % AOI_WIDTH,rand() % AOI_LENGTH);
-
             }
 
 
@@ -135,10 +132,10 @@ int main()
             g->reset();
 
             totalAverageDistance += aosp(g, totalDiameter);
-            cout << "\n++Deleting++\n";
+            cout << "++Deleting++" << endl;
 
             delete g;
-            cout << "\n++Deleted++\n";
+            cout << "++Deleted++" << endl;
             g = NULL;
         }
 
