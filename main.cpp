@@ -86,7 +86,7 @@ int main()
     {
         numRange += MIN_RANGE;
         cout << numRange << "\n";
-        outputFile << "Range: " << numNodes << endl;
+        outputFile << "Range: " << numRange << endl;
         for(int i = 0; i < NUM_REPETITIONS; i++)
         {
             cout << "Rep: " << i+1 << "\n";
