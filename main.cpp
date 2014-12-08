@@ -10,14 +10,15 @@ using namespace std;
 void dfsVisit(Graph* g, int n);//DFS function
 void parray (int **a, int b);//test function to output aosp function
 int numConnectedComponents(Graph* g);//returns number of separate connected components
-float aosp(Graph* g, int& totalDiameter);//average of shortest paths in graph, also finds greatest diameter of largest connected component
+float aosp(Graph* g, int& totalDiameter);//average of shortest paths in graph, also finds greatest diameter of
+                                         //largest connected component
 int numElementsInTree(Graph* g, int id);//returns number of nodes in a connected component
 int sizeOfLargestConnectedComponent(Graph* g);//returns number of nodes of the largest connected components
 bool inRange(Node* a, Node* b, int range);//test if two nodes can form a connection
-const int AOI_LENGTH = 500, AOI_WIDTH = 500, MIN_NODES = 50, MAX_NODES = 1250, NUM_REPETITIONS = 10, ARBITRARY_RANGE = 20, MIN_RANGE = 5, MAX_RANGE = 85, ARBITRARY_NODES = 200;
+
+const int AOI_LENGTH = 500, AOI_WIDTH = 500, MIN_NODES = 50, MAX_NODES = 1250, NUM_REPETITIONS = 10,
+        ARBITRARY_RANGE = 20, MIN_RANGE = 5, MAX_RANGE = 85, ARBITRARY_NODES = 200;
 const string FILENAME = "GraphTestingSuite.txt";
-
-
 
 int main()
 {
@@ -46,9 +47,12 @@ int main()
                 nodes[i] = new Node(i,rand() % AOI_WIDTH,rand() % AOI_LENGTH);
             }
 
-            for (int i = 0; i < numNodes; i++) {
-                for (int j = 0; j < numNodes; j++) {
-                    if (j != i && inRange(nodes[i], nodes[j], range)) {
+            for (int i = 0; i < numNodes; i++)
+            {
+                for (int j = 0; j < numNodes; j++)
+                {
+                    if (j != i && inRange(nodes[i], nodes[j], range))
+                    {
                         g->addEdge(nodes[i]->id, nodes[j]->id);
                     }
                 }
@@ -58,8 +62,10 @@ int main()
             {
                 delete nodes[i];
             }
+
             delete [] nodes;
             nodes = NULL;
+
             totalConnectedComponents += numConnectedComponents(g);
             g->reset();
             totalLargestConnectedComponent += sizeOfLargestConnectedComponent(g);
@@ -70,9 +76,12 @@ int main()
             g = NULL;
         }
 
-        outputFile << "Average number of Connected Components: " << totalConnectedComponents / static_cast<float>(NUM_REPETITIONS) << endl;
-        outputFile << "Average size of the largest connected Component: " << totalLargestConnectedComponent / static_cast<float>(NUM_REPETITIONS) << endl;
-        outputFile << "Average of the average node distance: " << totalAverageDistance / static_cast<float>(NUM_REPETITIONS) << endl;
+        outputFile << "Average number of Connected Components: "
+                   << totalConnectedComponents / static_cast<float>(NUM_REPETITIONS) << endl;
+        outputFile << "Average size of the largest connected Component: "
+                   << totalLargestConnectedComponent / static_cast<float>(NUM_REPETITIONS) << endl;
+        outputFile << "Average of the average node distance: "
+                   << totalAverageDistance / static_cast<float>(NUM_REPETITIONS) << endl;
         outputFile << "Average Diameter: " << totalDiameter / static_cast<float>(NUM_REPETITIONS) << endl;
 
         totalConnectedComponents = 0;
@@ -83,12 +92,12 @@ int main()
 
     cout << "Nodes are done; range started" << endl;
 
-    ///////
     while(numRange != MAX_RANGE)
     {
         numRange += MIN_RANGE;
         cout << numRange << endl;
         outputFile << "Range: " << numRange << endl;
+
         for(int i = 0; i < NUM_REPETITIONS; i++)
         {
             cout << "Rep: " << i+1 << endl;
@@ -102,16 +111,17 @@ int main()
             }
 
 
-            for (int i = 0; i < ARBITRARY_NODES; i++) {
-                for (int j = 0; j < ARBITRARY_NODES; j++) {
-                    if (j != i && inRange(nodes[i], nodes[j], numRange)) {
+            for (int i = 0; i < ARBITRARY_NODES; i++)
+            {
+                for (int j = 0; j < ARBITRARY_NODES; j++)
+                {
+                    if (j != i && inRange(nodes[i], nodes[j], numRange))
+                    {
                         g->addEdge(nodes[i]->id, nodes[j]->id);
 
                     }
                 }
             }
-
-
 
             for(int i = 0; i < ARBITRARY_NODES; i++)
             {
@@ -133,15 +143,17 @@ int main()
 
             totalAverageDistance += aosp(g, totalDiameter);
             cout << "++Deleting++" << endl;
-
             delete g;
             cout << "++Deleted++" << endl;
             g = NULL;
         }
 
-        outputFile << "Average number of Connected Components: " << totalConnectedComponents / static_cast<float>(NUM_REPETITIONS) << endl;
-        outputFile << "Average size of the largest connected Component: " << totalLargestConnectedComponent / static_cast<float>(NUM_REPETITIONS) << endl;
-        outputFile << "Average of the average node distance: " << totalAverageDistance / static_cast<float>(NUM_REPETITIONS) << endl;
+        outputFile << "Average number of Connected Components: "
+                   << totalConnectedComponents / static_cast<float>(NUM_REPETITIONS) << endl;
+        outputFile << "Average size of the largest connected Component: "
+                   << totalLargestConnectedComponent / static_cast<float>(NUM_REPETITIONS) << endl;
+        outputFile << "Average of the average node distance: "
+                   << totalAverageDistance / static_cast<float>(NUM_REPETITIONS) << endl;
         outputFile << "Average Diameter: " << totalDiameter / static_cast<float>(NUM_REPETITIONS) << endl;
 
         totalConnectedComponents = 0;
