@@ -15,7 +15,7 @@ float aosp(Graph* g, int& totalDiameter);//average of shortest paths in graph, a
 int numElementsInTree(Graph* g, int id);//returns number of nodes in a connected component
 int sizeOfLargestConnectedComponent(Graph* g);//returns number of nodes of the largest connected components
 bool inRange(Node* a, Node* b, int range);//test if two nodes can form a connection
-const int AOI_LENGTH = 500, AOI_WIDTH = 500, MIN_NODES = 50, MAX_NODES = 1250, NUM_REPETITIONS = 10, ARBITRARY_RANGE = 20, MIN_RANGE = 5, MAX_RANGE = 100, ARBITRARY_NODES = 200;
+const int AOI_LENGTH = 500, AOI_WIDTH = 500, MIN_NODES = 50, MAX_NODES = 1250, NUM_REPETITIONS = 10, ARBITRARY_RANGE = 20, MIN_RANGE = 5, MAX_RANGE = 85, ARBITRARY_NODES = 200;
 const string FILENAME = "GraphTestingSuite.txt";//"H:\\Users\\Jordan\\Documents\\Github Repos\\CS2500GraphAlgorithms\\GraphTestingSuite.txt";
 
 
@@ -305,7 +305,7 @@ float aosp(Graph* g, int& totalDiameter)//average of shortest paths
     {
         for(int j = 0 ; j < numVerts ; j++)
         {
-            if(aosparray[i][j] > 0 && aosparray[i][j] < 999)
+            if(aosparray[i][j] > 0 && aosparray[i][j] < 9999)
             {
                 sum += aosparray[i][j];
                 div += 1;
